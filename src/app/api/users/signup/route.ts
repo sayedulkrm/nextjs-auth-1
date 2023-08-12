@@ -2,6 +2,7 @@ import { connnectDB } from "@/dbConfig/dbConfig";
 import { User } from "@/models/userModels";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { sendEmail } from "@/helper/sendMail";
 
 connnectDB();
 
@@ -31,6 +32,16 @@ export async function POST(request: NextRequest) {
             name,
             email,
             password,
+        });
+
+        console.log("Here's the USER ID" + user._id);
+
+        // send Varifiction email
+
+        await sendEmail({
+            userEmail: email,
+            emailType: "VERIFY",
+            userId: user._id,
         });
 
         return NextResponse.json(

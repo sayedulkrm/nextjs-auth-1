@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -35,11 +36,23 @@ const Profile = () => {
             <h1 className="text-4xl w-full p-5 font-bold text-left">
                 Profile Page
             </h1>
+            <Link
+                href={"/"}
+                className="p-5 font-bold bg-yellow-400 mx-5  hover:bg-yellow-600 self-start"
+            >
+                Home
+            </Link>
             <div className="w-full h-[1px] bg-gray-200"></div>
             <div className="flex flex-col gap-3">
                 <p className="text-xl">Id: {userData?._id}</p>
                 <p className="text-xl">Name: {userData?.name}</p>
                 <p className="text-xl">Email: {userData?.email}</p>
+                <p className="text-xl">
+                    Varified:{" "}
+                    {userData?.isVarified
+                        ? "Your Email is Varified"
+                        : "Your Email is not Varified"}
+                </p>
             </div>
 
             <button
