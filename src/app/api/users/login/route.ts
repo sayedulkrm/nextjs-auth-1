@@ -48,20 +48,20 @@ export async function POST(request: NextRequest) {
         // Creating Token
 
         const token = await jwt.sign(tokenData, process.env.JWT_SECRET_TOKEN!, {
-            expiresIn: "1d",
+            expiresIn: "15d",
         });
 
         const response = NextResponse.json(
             {
                 success: true,
                 message: `Welcome back ${user.name}!`,
-                user,
             },
             { status: 200 }
         );
 
         response.cookies.set("token", token, {
             httpOnly: true,
+            expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
         });
 
         return response;
